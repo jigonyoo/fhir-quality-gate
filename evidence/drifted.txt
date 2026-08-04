@@ -1,0 +1,61 @@
+bundles/drifted.json  (1,358 entries)
+-------------------------------------
+  [CRITICAL] F12  Condition/cond-1 - ICD-10-CM code is not in valid format
+             code='E119' - looks like E11.9
+             impact: Payers reject the claim outright; the diagnosis never reaches the registry.
+             fix:    Restore the decimal point; ICD-10-CM is category + '.' + subcategory.
+  [CRITICAL] F12  Condition/cond-10 - ICD-10-CM code is not in valid format
+             code='E119' - looks like E11.9
+             impact: Payers reject the claim outright; the diagnosis never reaches the registry.
+             fix:    Restore the decimal point; ICD-10-CM is category + '.' + subcategory.
+  [CRITICAL] F12  Condition/cond-28 - ICD-10-CM code is not in valid format
+             code='E119' - looks like E11.9
+             impact: Payers reject the claim outright; the diagnosis never reaches the registry.
+             fix:    Restore the decimal point; ICD-10-CM is category + '.' + subcategory.
+  [CRITICAL] F2  Patient/pat-11 - duplicate resource id in one bundle
+             Patient/pat-11 appears 2 times
+             impact: The second copy overwrites the first, or the patient is counted twice in every measure.
+             fix:    De-duplicate before transmission; ids must be unique within a bundle.
+  [CRITICAL] F4  Patient/pat-31 - Patient with no identifier
+             identifier is absent
+             impact: The record cannot be matched to the same person in any other system; it becomes a new patient on every import.
+             fix:    Require at least one identifier with a system URI before export.
+  [CRITICAL] F5  Observation/obs-6 - unit does not match the unit expected for this LOINC code
+             LOINC 8462-4 (Diastolic blood pressure): unit='in', expected 'mm[Hg]', value=71.8
+             impact: The magnitude is read on the wrong scale - a height of 170 becomes 170 inches.
+             fix:    Convert to the expected UCUM unit, or reject.
+  [CRITICAL] F7  Observation/obs-28 - subject reference points outside the bundle
+             subject.reference=Patient/pat-99999 is not present
+             impact: The observation is orphaned - it belongs to no patient and drops out of every per-patient roll-up.
+             fix:    Include the referenced resource, or use an absolute reference the receiver can resolve.
+  [CRITICAL] F8  Observation/obs-24 - value outside the physiologically plausible band
+             Diastolic blood pressure = 4200.0 mm[Hg] (plausible 20-200)
+             impact: One value like this moves a cohort mean and can trigger a clinical alert on a patient who is fine.
+             fix:    Range-check at intake and route outliers to review rather than loading them.
+  [CRITICAL] F9  Observation/obs-67 - code declared under the wrong code system
+             code 2339-0 is LOINC but system=http://snomed.info/sct
+             impact: Any receiver that filters by system finds nothing - the observation is invisible, not wrong.
+             fix:    Set system to http://loinc.org for LOINC codes.
+  [HIGH    ] F1  Patient/pat-4 - gender outside the required value set
+             gender='M', allowed ['female', 'male', 'other', 'unknown']
+             impact: Receiving systems reject the resource or coerce it to 'unknown'.
+             fix:    Map the source value; 'M'/'F' are not FHIR codes.
+  [HIGH    ] F10  Observation/obs-36 - dateTime with no timezone offset
+             effectiveDateTime=2026-03-04T11:20:00
+             impact: The receiver assumes its own timezone; a result taken at 23:00 lands on the wrong day.
+             fix:    FHIR requires an offset when a dateTime carries a time. Emit +00:00 or the local offset.
+  [HIGH    ] F11  Observation/obs-42 - status outside the required value set
+             status='FINAL' (the value set is lowercase)
+             impact: Filters on status='final' skip the row, so a finalised result is treated as missing.
+             fix:    Codes are case-sensitive; normalise before export.
+  [HIGH    ] F3  Patient/pat-21 - birthDate in the future
+             birthDate=2039-04-11
+             impact: Age-banded measures silently exclude the patient; paediatric logic may fire.
+             fix:    Reject at intake - a future birth date is never a valid record.
+  [HIGH    ] F6  Observation/obs-12 - code and display disagree
+             LOINC 2339-0 carries display 'Body mass index'; the code means 'Glucose [Mass/volume] in Blood'
+             impact: Humans reading the chart see one thing, systems reading the code compute another.
+             fix:    Take display from the terminology server, never from the source feed.
+
+  14 defect(s)
+

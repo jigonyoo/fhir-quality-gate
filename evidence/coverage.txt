@@ -1,0 +1,7 @@
+planted defect types      : 12
+detected                  : 12
+missed                    : none
+findings on clean bundle  : 0
+total findings on drifted : 14
+
+OK  12/12 defect types caught, 0 false alarms

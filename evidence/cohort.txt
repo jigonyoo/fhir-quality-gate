@@ -1,0 +1,5 @@
+bundle                  patients  denominator  numerator   measure
+bundles/clean.json           300           46         26     56.5%
+bundles/drifted.json         300           43         24     55.8%
+
+Neither run raised an error. Both look like a measure result.

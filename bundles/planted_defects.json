@@ -1,0 +1,62 @@
+[
+ {
+  "defect_id": "F1",
+  "resource": "Patient",
+  "description": "gender 'M' instead of the required code 'male'"
+ },
+ {
+  "defect_id": "F2",
+  "resource": "Patient",
+  "description": "Patient/pat-11 appears twice with the same id"
+ },
+ {
+  "defect_id": "F3",
+  "resource": "Patient",
+  "description": "birthDate in the future"
+ },
+ {
+  "defect_id": "F4",
+  "resource": "Patient",
+  "description": "no MRN identifier - the record cannot be matched across systems"
+ },
+ {
+  "defect_id": "F5",
+  "resource": "Observation",
+  "description": "body height reported in inches while the value is still a cm magnitude"
+ },
+ {
+  "defect_id": "F6",
+  "resource": "Observation",
+  "description": "LOINC 29463-7 labelled 'Body mass index' - code and display disagree"
+ },
+ {
+  "defect_id": "F7",
+  "resource": "Observation",
+  "description": "glucose result references a patient that is not in the bundle"
+ },
+ {
+  "defect_id": "F8",
+  "resource": "Observation",
+  "description": "systolic blood pressure of 4200 mm[Hg]"
+ },
+ {
+  "defect_id": "F9",
+  "resource": "Observation",
+  "description": "a glucose LOINC code declared under the SNOMED system URI"
+ },
+ {
+  "defect_id": "F10",
+  "resource": "Observation",
+  "description": "effectiveDateTime with no timezone offset"
+ },
+ {
+  "defect_id": "F11",
+  "resource": "Observation",
+  "description": "status 'FINAL' - the value set is lowercase"
+ },
+ {
+  "defect_id": "F12",
+  "resource": "Condition",
+  "description": "three type-2 diabetes codes written 'E119' with no decimal point"
+ }
+]
